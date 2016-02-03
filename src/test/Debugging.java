@@ -1,13 +1,6 @@
 package test;
 
-import static org.junit.Assert.*;
-
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-
 import org.junit.After;
-//import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,11 +8,17 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameters;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-
-
 import utils.Element;
 import utils.InputData;
 import utils.Methods;
+
+import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
+//import org.junit.AfterClass;
 
 
 
@@ -47,7 +46,11 @@ public class Debugging {
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-		
+		/* code for using IE */
+		/*File file = new File("C:/Selenium/IEDriverServer.exe");
+		System.setProperty("webdriver.ie.driver", file.getAbsolutePath());
+		WebDriver driver = new InternetExplorerDriver();*/
+
 		System.setProperty("webdriver.chrome.driver","C:\\Selenium\\chromedriver_win32\\chromedriver.exe");
         driver = new ChromeDriver();
         
