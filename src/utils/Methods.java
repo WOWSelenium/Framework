@@ -59,7 +59,7 @@ public class Methods {
 	//Methods that a Text box is able to execute filter By
 	private void workTextBox(WebDriver driver, Element element){
 		
-		filterBy = element.getLocatorType().toString();		
+		filterBy = element.getLocatorType();//.toString();
 		
 		switch(filterBy){
 		case ("id"):
@@ -115,30 +115,59 @@ public class Methods {
 	}
 	
 	private void workButton(WebDriver driver, Element element){
-		filterBy = element.getLocatorType().toString();		
+		filterBy = element.getLocatorType();//.toString();
 		
-		switch(element.getLocatorType().toString()){
+		switch(filterBy){
 		case ("id"):
 			if (selector.findById()){
 				// Set the value to enter then execute the action
 				driver.findElement(By.id(element.getLocatorValue())).click();			
 			}
 			break;
-		// Need to update the rest of the calls
-			
-		case ("name"):
-			if((new WebDriverWait (driver, 25)).until(new ExpectedCondition<Boolean>(){
-				public Boolean apply(WebDriver d){
-		    		return driver.findElement(By.name(element.getLocatorValue())).isDisplayed();
-		    	}	 
-			}))driver.findElement(By.name(element.getLocatorValue())).click();				
-			
-			break;
+			case ("name"):
+				if (selector.findByName()){
+					driver.findElement(By.name(element.getLocatorValue())).click();
+				}
+				break;
+			case ("classname"):
+				if (selector.findByClassName()){
+					driver.findElement(By.className(element.getLocatorValue())).click();
+				}
+				break;
+            case ("linktext"):
+                if (selector.findByLinkText()){
+                    driver.findElement(By.linkText(element.getLocatorValue())).click();
+                }
+                break;
+            case ("cssselector"):
+                if (selector.findByCssSelector()){
+                    driver.findElement(By.cssSelector(element.getLocatorValue())).click();
+                }
+                break;
+            case ("partiallinktext"):
+                if (selector.findByPartialLinkText()){
+                    driver.findElement(By.partialLinkText(element.getLocatorValue())).click();
+                }
+                break;
+            case ("tagname"):
+                if (selector.findByTagName()){
+                    // Set the value to enter then execute the action
+                    driver.findElement(By.tagName(element.getLocatorValue())).click();
+                }
+                break;
+            case ("xpath"):
+                if (selector.findByXpath()){
+                    // Set the value to enter then execute the action
+                    driver.findElement(By.xpath(element.getLocatorValue())).click();
+                }
+                break;
 		}// switch
 	}
 	
 	private void workLink(WebDriver driver, Element element){
-		switch(element.getLocatorType().toString()){
+		filterBy = element.getLocatorType();//.toString();
+
+        switch(filterBy){
 		case ("id"):
 			if((new WebDriverWait (driver, 25)).until(new ExpectedCondition<Boolean>(){
 				public Boolean apply(WebDriver d){

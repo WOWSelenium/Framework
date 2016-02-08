@@ -129,7 +129,7 @@ public class InputData {
 	    		// use comma as separator
 	    		String[] columnsInLine = line.split(csvDelimiter);
 	    		List<Element> eachElement = new ArrayList<Element>();	    		
-	    		int pos =0;
+	    		int pos = 0;
 	    		for (int i=0; i < columnsInLine.length -1; i+=4){
 	    			Element individualObj = new Element();
 	    			individualObj.setLocatorType(columnsInLine[pos++]);
