@@ -114,7 +114,7 @@ public class InputData {
 	}
 	
 	public static List<Element> getTestData4Ele(String csvFile) throws IOException{
-		List<Element> csvLines = new ArrayList<Element>();
+		List<Element> csvLines = new ArrayList<>();  //Element
 		
 		BufferedReader br = null;
 	    String line = "";
@@ -128,7 +128,7 @@ public class InputData {
 	    		}
 	    		// use comma as separator
 	    		String[] columnsInLine = line.split(csvDelimiter);
-	    		List<Element> eachElement = new ArrayList<Element>();	    		
+	    		List<Element> eachElement = new ArrayList<>();  //<Element>
 	    		int pos = 0;
 	    		for (int i=0; i < columnsInLine.length -1; i+=4){
 	    			Element individualObj = new Element();
@@ -142,8 +142,6 @@ public class InputData {
 	    		csvLines.addAll(eachElement);
 	    	 }
         } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
             e.printStackTrace();
         } finally {
             if (br != null) {

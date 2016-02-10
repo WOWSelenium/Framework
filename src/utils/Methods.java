@@ -25,22 +25,21 @@ public class Methods {
 	private Element getElement(){
 		return this.element;
 	}
-	
-	
+
 	
 	public void executeAction(){
-		//Find what type of element is like: Table, button,link, textbox, dropdown, etc. 
-		switch(element.getObjType().toString()){		
-			case ("textBox"):
+		//Find what type element is like: Table, button,link, textbox, dropdown, etc.
+		switch(element.getObjType()){		//.toString()
+			case ("text"): //textBox
 				workTextBox(this.getDriver(), this.getElement());
 				break;
 			case ("link"):
 				workLink(this.getDriver(), this.getElement());
 				break;
 			case ("button"):
-				workButton(this.getDriver(), this.getElement());
-				break;
-			case("dropDown"):
+                workButton(this.getDriver(), this.getElement());
+                break;
+            case("dropDown"):
 				workDropDown(this.getDriver(), this.getElement());
 				break;
 			case ("checkBox"):
@@ -50,22 +49,22 @@ public class Methods {
 				workRadioBtn(this.getDriver(), this.getElement());
 				break;
 			case ("url"):
-				openURL(this.getDriver(),element.getEleValue().toString());
+                openURL(this.getDriver(),element.getEleValue());   //.toString()
 				break;
 		}
 				
 	}
 	
-	//Methods that a Text box is able to execute filter By
+	//Methods that a Text box is able execute filterBy
 	private void workTextBox(WebDriver driver, Element element){
-		
-		filterBy = element.getLocatorType();//.toString();
-		
-		switch(filterBy){
+
+        System.out.println(filterBy = element.getLocatorType());//.toString();
+
+        switch(filterBy){
 		case ("id"):
 			if(selector.findById()){
-				driver.findElement(By.id(element.getLocatorValue())).clear();					
-				driver.findElement(By.id(element.getLocatorValue())).sendKeys(element.getEleValue());	
+				driver.findElement(By.id(element.getLocatorValue())).clear();
+				driver.findElement(By.id(element.getLocatorValue())).sendKeys(element.getEleValue());
 			}
 		// Object not found, what next?
 			break;
@@ -108,38 +107,39 @@ public class Methods {
 		case ("xpath"):
 			if(selector.findByXpath()){
 				driver.findElement(By.xpath(element.getLocatorValue())).clear();					
-				driver.findElement(By.xpath(element.getLocatorValue())).sendKeys(element.getEleValue());	
-			}			
+				driver.findElement(By.xpath(element.getLocatorValue())).sendKeys(element.getEleValue());
+			}
 			break;
 		}
 	}
-	
+    //Methods that a button is able execute filterBy
 	private void workButton(WebDriver driver, Element element){
-		filterBy = element.getLocatorType();//.toString();
+
+        filterBy = element.getLocatorType();//.toString();
 		
 		switch(filterBy){
 		case ("id"):
-			if (selector.findById()){
+			/*if (selector.findById()){
 				// Set the value to enter then execute the action
 				driver.findElement(By.id(element.getLocatorValue())).click();			
-			}
+			}*/
 			break;
-			case ("name"):
-				if (selector.findByName()){
+		case ("name"):
+			/*if (selector.findByName()){
 					driver.findElement(By.name(element.getLocatorValue())).click();
-				}
-				break;
-			case ("classname"):
+			}*/
+			break;
+			/*case ("classname"):
 				if (selector.findByClassName()){
 					driver.findElement(By.className(element.getLocatorValue())).click();
 				}
-				break;
+				break;*/
             case ("linktext"):
-                if (selector.findByLinkText()){
+                /*if (selector.findByLinkText()){
                     driver.findElement(By.linkText(element.getLocatorValue())).click();
-                }
+                }*/
                 break;
-            case ("cssselector"):
+            /*case ("cssselector"):
                 if (selector.findByCssSelector()){
                     driver.findElement(By.cssSelector(element.getLocatorValue())).click();
                 }
@@ -160,12 +160,13 @@ public class Methods {
                     // Set the value to enter then execute the action
                     driver.findElement(By.xpath(element.getLocatorValue())).click();
                 }
-                break;
+                break;*/
 		}// switch
 	}
-	
-	private void workLink(WebDriver driver, Element element){
-		filterBy = element.getLocatorType();//.toString();
+    //Methods that a Link is able to execute filterBy
+	private void workLink(final WebDriver driver, final Element element){
+
+        filterBy = element.getLocatorType();//.toString();
 
         switch(filterBy){
 		case ("id"):
@@ -198,10 +199,11 @@ public class Methods {
 			break;
 		}
 	}
-	
+
+    //Methods that a drop down is able execute filterBy
 	private void workDropDown(WebDriver driver, Element element){
 
-		filterBy = element.getLocatorType().toString();		
+		filterBy = element.getLocatorType();		//toString()
 		
 		switch(filterBy){
 		case ("id"):
@@ -242,45 +244,137 @@ public class Methods {
 			break;
 		case ("tagname"):
 			if(selector.findByTagName()){
-				Select dropDownVal = new Select(driver.findElement(By.id(element.getLocatorValue())));
+				Select dropDownVal = new Select(driver.findElement(By.tagName(element.getLocatorValue())));
 				dropDownVal.selectByValue(element.getEleValue());						
 			}			
 			break;
 		case ("xpath"):
 			if(selector.findByXpath()){
-				Select dropDownVal = new Select(driver.findElement(By.id(element.getLocatorValue())));
+				Select dropDownVal = new Select(driver.findElement(By.xpath(element.getLocatorValue())));
 				dropDownVal.selectByValue(element.getEleValue());						
 			}			
 			break;
 		}
 	}
-	
+
+    //Methods that a checkbox is able execute filterBy
 	private void workCheckBox(WebDriver driver, Element element){
-		switch(element.getLocatorType().toString()){
+
+        filterBy = element.getLocatorType();
+
+        switch(filterBy){
 		case ("id"):
-			
-			break;
+            if(selector.findById()){
+               // Set the value to enter then execute the action
+               Select checkBoxVal = new Select(driver.findElement(By.id(element.getLocatorValue())));
+               checkBoxVal.selectByValue(element.getEleValue());
+            }
+            break;
 		case ("name"):
-			
+            if(selector.findByName()){
+               // Set the value to enter then execute the action
+               Select checkBoxVal = new Select(driver.findElement(By.name(element.getLocatorValue())));
+               checkBoxVal.selectByValue(element.getEleValue());
+            }
+           	break;
+        case ("classname"):
+            if(selector.findByClassName()){
+                Select checkBoxVal = new Select(driver.findElement(By.className(element.getLocatorValue())));
+                checkBoxVal.selectByValue(element.getEleValue());
+            }
+            break;
+        case ("linkText"):
+            if(selector.findByLinkText()){
+               // Set the value to enter then execute the action
+               Select checkBoxVal = new Select(driver.findElement(By.linkText(element.getLocatorValue())));
+               checkBoxVal.selectByValue(element.getEleValue());
+            }
 			break;
-		case ("linkText"):
-			
-			break;
+        case ("cssselector"):
+            if(selector.findByCssSelector()){
+               Select checkBoxVal = new Select(driver.findElement(By.cssSelector(element.getLocatorValue())));
+                checkBoxVal.selectByValue(element.getEleValue());
+            }
+            break;
+        case ("partiallinktext"):
+            if(selector.findByPartialLinkText()){
+               Select checkBoxVal = new Select(driver.findElement(By.partialLinkText(element.getLocatorValue())));
+                checkBoxVal.selectByValue(element.getEleValue());
+            }
+            break;
+        case ("tagname"):
+            if(selector.findByTagName()){
+               Select checkBoxVal = new Select(driver.findElement(By.tagName(element.getLocatorValue())));
+                checkBoxVal.selectByValue(element.getEleValue());
+            }
+            break;
+        case ("xpath"):
+            if(selector.findByXpath()){
+               Select checkBoxVal = new Select(driver.findElement(By.xpath(element.getLocatorValue())));
+                checkBoxVal.selectByValue(element.getEleValue());
+            }
+            break;
 		}
 	}
-	
+
+    //Methods that a radio button is able execute filterBy
 	private void workRadioBtn(WebDriver driver, Element element){
-		switch(element.getLocatorType().toString()){
-		case ("id"):
-			
-			break;
-		case ("name"):
-			
-			break;
-		case ("linkText"):
-			
-			break;
-		}
+
+        filterBy = element.getLocatorType();
+
+        switch(filterBy) {
+            case ("id"):
+                if (selector.findById()) {
+                    // Set the value to enter then execute the action
+                    Select radioButtonVal = new Select(driver.findElement(By.id(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("name"):
+                if (selector.findByName()) {
+                    // Set the value to enter then execute the action
+                    Select radioButtonVal = new Select(driver.findElement(By.name(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("classname"):
+                if (selector.findByClassName()) {
+                    Select radioButtonVal = new Select(driver.findElement(By.className(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("linkText"):
+                if (selector.findByLinkText()) {
+                    // Set the value to enter then execute the action
+                    Select radioButtonVal = new Select(driver.findElement(By.linkText(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("cssselector"):
+                if (selector.findByCssSelector()) {
+                    Select radioButtonVal = new Select(driver.findElement(By.cssSelector(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("partiallinktext"):
+                if (selector.findByPartialLinkText()) {
+                    Select radioButtonVal = new Select(driver.findElement(By.partialLinkText(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("tagname"):
+                if (selector.findByTagName()) {
+                    Select radioButtonVal = new Select(driver.findElement(By.tagName(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+            case ("xpath"):
+                if (selector.findByXpath()) {
+                    Select radioButtonVal = new Select(driver.findElement(By.xpath(element.getLocatorValue())));
+                    radioButtonVal.selectByValue(element.getEleValue());
+                }
+                break;
+        }
 	}
 	
 	private void openURL(WebDriver driver,String url){

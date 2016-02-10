@@ -14,9 +14,9 @@ public class Element {
 	
 	//locator type: will have information of what locator type of the 8 available is used to identify the object 
 	//locator value: represent the object value
-	//inputValue: is the value to be drive by data-driven 
-	// is the value to enter for a text box control, drop down value to be select,
-	//objType: is a description of the object that is being to be handle in order to identify properly the action/method 
+	//inputValue: is the value to drive by data-driven
+	//            is the value to enter for a text box control, drop down value to be select,
+	//objType: is a description of the object that is to be handled in order to properly identify the action/method
 	public String getLocatorType() {
 		return locatorType;
 	}
